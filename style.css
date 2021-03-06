@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 182, 181, 1) 0%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+body,
+button {
+  font-family: "Ubuntu", sans-serif;
+}
+
+header {
+  font-family: "ZCOOL KuaiLe", cursive;
+  padding: 1em;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3em;
+}
+h2 {
+  font-size: 1.5em;
+}
+
+label {
+  width: 130px;
+}
+
+input {
+  width: 100%;
+  padding: 0.2em;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 182, 181, 0.1) 0%,
+    rgba(0, 212, 255, 0.1) 100%
+  );
+}
+
+.form-container {
+  width: 80vw;
+  margin: 1em auto;
+  padding: 1em;
+  border-radius: 3px;
+  background-color: rgb(200, 255, 255);
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+}
+
+.form-group:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button {
+  background-color: rgba(0, 212, 255);
+  padding: 0.2em;
+  cursor: pointer;
+}
