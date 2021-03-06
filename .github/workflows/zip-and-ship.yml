@@ -1,0 +1,40 @@
+name: Deploy to Lambda
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_zip:
+    name: deploy lambda function
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [1.16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Install golang-migrate
+        run: |
+          curl -L https://github.com/golang-migrate/migrate/releases/download/v4.12.2/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate.linux-amd64 /usr/bin/migrate
+          which migrate
+      - name: Migrate
+        run: |
+          migrate -database ${{ secrets.DB_URL }} -path db/migrations/ up
+      - name: Build binary and zip
+        run: |
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -a -o tomlink . && zip deployment.zip tomlink
+      - name: deploy
+        run: |
+          aws lambda update-function-code --function-name=tomlink --zip-file=fileb://deployment.zip
+

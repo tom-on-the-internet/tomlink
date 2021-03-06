@@ -1,0 +1,29 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  max-width: 750px;
+  width: 80vw;
+}
+
+footer {
+  text-align: center;
+  flex-shrink: 0;
+  margin-bottom: 1em;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.create-button-container {
+  margin-top: 2em;
+}
+
+.emoji {
+  font-size: 4em;
+  margin: 0;
+}

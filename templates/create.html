@@ -1,0 +1,28 @@
+{{ define "create" }}
+<form method="POST" action="/" accept-charset="utf-8">
+  <div>
+    <label for="link">link</label
+    ><input
+      required
+      pattern="[a-z0-9-]{3,}"
+      type="text"
+      name="link"
+      id="link"
+    />
+    <p>
+      ex: https://tomlink.ca/<strong>your-link</strong><br />lowercase letters,
+      numbers, and hyphens only
+    </p>
+  </div>
+  <br />
+  <div>
+    <label for="url">url</label
+    ><input required type="url" name="url" id="url" />
+    <p>must be a real, full url <br />don't forget https://</p>
+  </div>
+  <div class="create-button-container">
+    <button>create redirect</button>
+  </div>
+  {{.Method}}
+</form>
+{{ end }}

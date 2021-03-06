@@ -1,0 +1,61 @@
+{{ define "view-redirect" }}
+
+<h2>Access Page</h2>
+<p>This is the access page. You should bookmark it.</p>
+<p>
+  <a href="{{.CurrentURL}}">{{.CurrentURL}}</a>
+</p>
+<p>link</p>
+<p>
+  <a href="{{.LinkURL}}">{{.LinkURL}}</a>
+</p>
+<p>url</p>
+<p>
+  <a href="{{.Redirect.URL}}">{{.Redirect.URL}}</a>
+</p>
+<p>created</p>
+<p>{{.Redirect.CreatedAt.String}}</p>
+
+<h2>Visits ({{.Redirect.VisitCount}})</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>IP Address</th>
+      <th>Country</th>
+      <th>Region Name</th>
+      <th>City</th>
+      <th>ISP</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{
+      range.Redirect.Visits
+    }}
+    <tr>
+      <td>{{.IPAddress}}</td>
+      <td>{{.Country}}</td>
+      <td>{{.RegionName}}</td>
+      <td>{{.City}}</td>
+      <td>{{.ISP}}</td>
+      <td>{{.CreatedAt}}</td>
+    </tr>
+    {{
+      end
+    }}
+  </tbody>
+</table>
+
+<br />
+
+<form
+  method="POST"
+  action="/redirects/{{.Redirect.AccessCode}}/delete"
+  accept-charset="utf-8"
+>
+  <button>Permanently delete this redirect</button>
+  or
+  <a href="/"> make another</a>
+</form>
+{{ end }}

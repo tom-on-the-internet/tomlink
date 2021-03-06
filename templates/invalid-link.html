@@ -1,0 +1,11 @@
+{{ define "invalid-link" }}
+<div style="text-align: center">
+  <p class="emoji">⛔</p>
+  <p>
+    <strong>{{ .Redirect.Link }}</strong> is already taken or invalid.
+  </p>
+  <p>
+    <a href="/">Try another?</a>
+  </p>
+</div>
+{{ end }}

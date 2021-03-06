@@ -1,0 +1,12 @@
+{{ define "invalid-url" }}
+<div style="text-align: center">
+  <p class="emoji">⛔</p>
+  <p>
+    <strong>{{ .Redirect.URL }}</strong> is either malformed or points to
+    nowhere.
+  </p>
+  <p>
+    <a href="/">Try another?</a>
+  </p>
+</div>
+{{ end }}
