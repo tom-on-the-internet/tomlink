@@ -8,6 +8,8 @@ This is mostly a learning project.
 
 See it live at [https://tomlink.ca](https://tomlink.ca).
 
+See a video about this at [https://www.youtube.com/watch?v=ZI3BOLtYsks](https://www.youtube.com/watch?v=ZI3BOLtYsks)
+
 ## ENV Variables
 
 "db_url" a postgres connection url (required)
