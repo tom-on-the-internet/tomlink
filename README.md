@@ -13,10 +13,17 @@ See a video about this at [https://www.youtube.com/watch?v=ZI3BOLtYsks](https://
 ## ENV Variables
 
 "db_url" a postgres connection url (required)
-ex: "postgres://postgres:mysecretpassword@localhost:5432/tomlink"
+ex: "postgres://postgres:password@localhost:5432/tomlink"
 
 "host" domain this will be hosted on (required)
 ex: "https://tomlink.ca" or "http://localhost:3000"
 
 "mock_ip" an ip address to use instead of the client's ip address (optional)
 ex: "198.33.22.141"
+
+## Get it running
+
+```bash
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=password -e POSTGRES_DB=tomlink postgres -c log_statement=all
+migrate -path db/migrations/ -database "postgres://postgres:password@localhost:5432/tomlink?sslmode=disable" up
+```

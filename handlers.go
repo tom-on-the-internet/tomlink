@@ -73,9 +73,9 @@ func (s *server) handleRedirect() http.HandlerFunc {
 			return
 		}
 
-		ipAdress := strings.Split(r.RemoteAddr, ":")[0]
+		ipAddress := strings.Split(r.RemoteAddr, ":")[0]
 
-		visit, err := createVisitFromIPAddress(ipAdress)
+		visit, err := createVisitFromIPAddress(ipAddress)
 		if err != nil {
 			http.Redirect(w, r, redirect.URL, http.StatusFound)
 		} else {
