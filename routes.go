@@ -12,4 +12,5 @@ func (s *server) routes() {
 	s.router.Post("/", s.handlePostRoot())
 	s.router.Post("/redirects/{accessCode:[a-f0-9]+}/delete", s.handleDelete())
 	s.router.Get("/*", s.handleNotFound())
+	s.router.Options("/*", s.handleCORS())
 }
