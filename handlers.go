@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"encoding/json"
 	"errors"
 	"html/template"
 	"log"
@@ -167,9 +168,34 @@ func (s *server) handleNotFound() http.HandlerFunc {
 	}
 }
 
+func (s *server) handleIdentify() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ipAddress := strings.Split(r.RemoteAddr, ":")[0]
+
+		visit := Visit{IPAddress: ipAddress}
+
+		res, err := http.Get("http://ip-api.com/json/" + ipAddress)
+		if err != nil {
+			log.Println(err)
+			s.handleFailure()
+		}
+
+		defer res.Body.Close()
+
+		err = json.NewDecoder(res.Body).Decode(&visit)
+		if err != nil {
+			log.Println(err)
+			s.handleFailure()
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		_ = json.NewEncoder(w).Encode(visit)
+	}
+}
+
 // Checks if the link is one that would either break the application, or make Tom unhappy.
 func isReservedWord(str string) bool {
-	reservedWords := []string{"tomlink", "deleted", "failure", "static", "redirects", "redirect", "delete", "deleted", "404", "not-found"}
+	reservedWords := []string{"tomlink", "deleted", "failure", "static", "redirects", "redirect", "delete", "deleted", "404", "not-found", "identify"}
 
 	for _, val := range reservedWords {
 		if val == str {

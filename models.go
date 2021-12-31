@@ -29,12 +29,12 @@ func (r Redirect) VisitCount() int {
 
 // Visit is the record of a client using the redirect.
 type Visit struct {
-	IPAddress  string
-	Country    string `json:"country"`
-	RegionName string `json:"regionName"`
-	City       string `json:"city"`
-	ISP        string `json:"isp"`
-	CreatedAt  time.Time
+	IPAddress  string    `json:"ipAddress"`
+	Country    string    `json:"country"`
+	RegionName string    `json:"regionName"`
+	City       string    `json:"city"`
+	ISP        string    `json:"isp"`
+	CreatedAt  time.Time `json:"createdAt"`
 }
 
 type ViewData struct {
