@@ -188,8 +188,21 @@ func (s *server) handleIdentify() http.HandlerFunc {
 			s.handleFailure()
 		}
 
+		origins, ok := r.Header["Origin"]
+		if !ok || len(origins) == 0 {
+			log.Println(err)
+			s.handleFailure()
+		}
+
+		origin := origins[0]
+
+		if origin != "https://tomontheinternet.com" && origin != "https://www.tomontheinternet.com" && origin != "http://127.0.0.1:8080/" {
+			log.Println(err)
+			s.handleFailure()
+		}
+
 		w.Header().Set("Content-Type", "application/json")
-		w.Header().Add("Access-Control-Allow-Origin", "*")
+		w.Header().Add("Access-Control-Allow-Origin", origin)
 		w.Header().Add("Access-Control-Allow-Credentials", "true")
 		w.Header().Add("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
 		w.Header().Add("Access-Control-Allow-Methods", "GET")
