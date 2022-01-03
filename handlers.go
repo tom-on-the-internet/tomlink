@@ -177,7 +177,9 @@ func (s *server) handleIdentify() http.HandlerFunc {
 		res, err := http.Get("http://ip-api.com/json/" + ipAddress)
 		if err != nil {
 			log.Println(err)
-			s.handleFailure()
+			http.Error(w, "NO", http.StatusForbidden)
+
+			return
 		}
 
 		defer res.Body.Close()
@@ -185,20 +187,26 @@ func (s *server) handleIdentify() http.HandlerFunc {
 		err = json.NewDecoder(res.Body).Decode(&visit)
 		if err != nil {
 			log.Println(err)
-			s.handleFailure()
+			http.Error(w, "NO", http.StatusForbidden)
+
+			return
 		}
 
 		origins, ok := r.Header["Origin"]
 		if !ok || len(origins) == 0 {
 			log.Println(err)
-			s.handleFailure()
+			http.Error(w, "NO", http.StatusForbidden)
+
+			return
 		}
 
 		origin := origins[0]
 
 		if origin != "https://tomontheinternet.com" && origin != "https://www.tomontheinternet.com" && origin != "http://127.0.0.1:8080/" {
 			log.Println(err)
-			s.handleFailure()
+			http.Error(w, "NO", http.StatusForbidden)
+
+			return
 		}
 
 		w.Header().Set("Content-Type", "application/json")
