@@ -202,7 +202,7 @@ func (s *server) handleIdentify() http.HandlerFunc {
 
 		origin := origins[0]
 
-		if origin != "https://tomontheinternet.com" && origin != "https://www.tomontheinternet.com" && origin != "http://127.0.0.1:8080/" {
+		if !isOriginAllowed(origin) {
 			log.Println(err)
 			http.Error(w, "NO", http.StatusForbidden)
 
@@ -249,4 +249,16 @@ func urlIsValid(str string) bool {
 	}
 
 	return true
+}
+
+func isOriginAllowed(origin string) bool {
+	if origin == "https://tomontheinternet.com" || origin == "https://www.tomontheinternet.com" || origin == "http://127.0.0.1:8080/" {
+		return true
+	}
+
+	if strings.Contains(origin, "jped") {
+		return true
+	}
+
+	return false
 }
